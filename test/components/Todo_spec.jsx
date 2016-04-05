@@ -14,7 +14,7 @@ describe('Todo', () => {
         const component = renderIntoDocument(
             <Todo list={['Take out trash','Mow the lawn']}/>
         );
-        const list = scryRenderedDOMComponentsWithTag(component, 'li');
+        const list = scryRenderedDOMComponentsWithTag(component, 'span');
 
         expect(list.length).to.equal(2);
         expect(list[0].textContent).to.equal('Take out trash');
@@ -28,7 +28,7 @@ describe('Todo', () => {
         const component = renderIntoDocument(
             <Todo list={mainList} toggleEntry={toggleEntry} />
         );
-        const list = scryRenderedDOMComponentsWithTag(component, 'li');
+        const list = scryRenderedDOMComponentsWithTag(component, 'span');
         Simulate.click(list[0]);
 
         expect(toggled).to.equal(list[0].textContent);
