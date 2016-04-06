@@ -5,7 +5,7 @@ import {
     scryRenderedDOMComponentsWithTag,
     Simulate
 } from 'react-addons-test-utils';
-import AddEntry from '../../src/components/AddEntry';
+import {AddEntry} from '../../src/components/AddEntry';
 import {expect} from 'chai';
 
 xdescribe('AddEntry', () => {

@@ -1,41 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Todo from './components/Todo';
+import {Router, Route, hashHistory} from 'react-router';
+import App from './components/App';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import reducer from './reducer';
+import {setState} from './actions';
+import {TodoContainer} from './components/Todo';
+import {AddEntryContainer} from './components/AddEntry';
 
-let list = ['Wash dishes', 'Take out trash'];
+const store = createStore(reducer);
+store.dispatch(setState());
 
-const toggleEntry = function (entry) {
-    console.log('toggle this entry: ' + entry);
-};
-
-const deleteEntry = function(entry) {
-    let loc = list.indexOf(entry);
-    if(loc >= 0) {
-        list.splice(loc, 1);
-    }
-
-    ReactDOM.render(
-        <Todo list={list} toggleEntry={toggleEntry} deleteEntry={deleteEntry} addEntry={addEntry} />,
-        document.getElementById('app')
-    );
-};
-
-const addEntry = function(itemToAdd) {
-    let loc = list.indexOf(itemToAdd);
-    if(loc === -1) {
-        list.push(itemToAdd);
-        console.log('Adding item: ' + itemToAdd);
-    } else {
-        console.log('Item already exists: ' + itemToAdd);
-    }
-
-    ReactDOM.render(
-        <Todo list={list} toggleEntry={toggleEntry} deleteEntry={deleteEntry} addEntry={addEntry} />,
-        document.getElementById('app')
-    );
-};
+const routes = <Route component={App}>
+    <Route path="/addItem" component={AddEntryContainer} />
+    <Route path="/" component={TodoContainer} />
+</Route>;
 
 ReactDOM.render(
-    <Todo list={list} toggleEntry={toggleEntry} deleteEntry={deleteEntry} addEntry={addEntry} />,
+    <Provider store={store}>
+        <Router history={hashHistory}>{routes}</Router>
+    </Provider>,
     document.getElementById('app')
 );
